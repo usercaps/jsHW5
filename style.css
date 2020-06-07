@@ -1,0 +1,60 @@
+.top-block{
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    /* align-items: center; */
+    display: flex;
+}
+
+.top-block p{
+    border: 1px solid black;
+    color: darkorange;
+}
+.top-block .sw {
+    margin-right: 10px;
+}
+.buttons-block .start, .stop, .lap{
+margin-right: 10px;
+}
+.buttons-block{
+    position: absolute;
+    left: 46%;
+    top: 40%;
+    display: flex;
+    /* align-items: center; */
+}
+.start{
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    border: 2px solid green;
+    background-color: green;
+    width: 60px;
+}
+.stop{
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid red;
+    background-color: red;
+    width: 60px;
+}
+.lap{
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid yellow;
+    background-color: yellow;
+    width: 60px;
+}
+
+.reset{
+    color: cyan;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid brown;
+    background-color: brown;
+    width: 60px;
+}
+
+.lapBlock{
+    display: flex;
+}
