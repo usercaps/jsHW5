@@ -7,28 +7,22 @@
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-<body>
-    <div class="top-block">
-        <div class="sw">
-            <p class="hours">00</p>
-        </div>
-        <div class="sw">
-            <p class="mins">00</p>
-        </div>
-        <div class="sw">
-            <p class="secs">00</p>
-        </div>
-        <div class="sw">
-            <p class="milis">00</p>
-        </div>
+<body><div class="wrapper">
+    <div class="secundon">
+    <div id="timer"></div>
+    <div class="buttons">
+      <button class="button-circle">Circle</button>
+      <button class="button-start">Start</button>
+      <button class="button-cancel">Stop</button>
     </div>
-    <div class="buttons-block">
-        <a href="#" class="start">START</a>
-        <a href="#" class="stop" style="display: none;">STOP</a>
-        <a href="#" class="lap">LAP</a>
-        <a href="#" class="reset">RESET</a>
+</div>
+    <div class="circles">
+      <ul class="time-list">
+  
+      </ul>
+      <button class="delete-list">Clear list</button>
     </div>
-    <div class="lapContainer"></div>
+  </div>
 
     <script src="./script.js"></script>
 </body>

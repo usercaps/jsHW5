@@ -1,120 +1,110 @@
-var start = document.querySelector('.start');
-var stop = document.querySelector('.stop');
-var reset = document.querySelector('.reset');
-var lap = document.querySelector('.lap');
+var milisec = 0,
+    sec = 0,
+    min = 0,
+    timer = document.getElementById('timer'),
+    stop = document.querySelector('.button-cancel'),
+    circle = document.querySelector('.button-circle'),
+    list = document.querySelector('.time-list'),
+    deleteList = document.querySelector('.delete-list'),
+    start = document.querySelector('.button-start');
 
-var lapContainer = document.querySelector('.lapContainer');
+    timer.innerHTML = '00' + ':00' + ':00';
 
-var mil = document.querySelector('.milis');
-var sec = document.querySelector('.secs');
-var min = document.querySelector('.mins');
-var hours = document.querySelector('.hours');
-var flag = false;
+// function init() {
+//   setInterval(timer, 10);
+// }
 
+function startimer() {
+    milisec++;
+    if(milisec>= 100){
+      sec++;
+      milisec = milisec - 100;
+    }
+    if (sec >= 60) {
+        min++;
+        sec = sec - 60;
+    }
+      if (milisec < 10) {
+          if (sec < 10) {
+              if (min < 10) {
+                timer.innerHTML ='0' + min + ':0' + sec + ':0' + milisec;
+              } else {
+                timer.innerHTML = min + ':0' + sec + ':0' + milisec;
+              }
+          } else {
+              if (min < 10) {
+                timer.innerHTML = '0' + min + ':' + sec + ':0' + milisec;
+              } else {
+                timer.innerHTML = min + ':' + sec + ':0' + milisec;
+              }
+          }
+      } else {
+          if (sec < 10) {
+              if (min < 10) {
+                timer.innerHTML = '0' + min + ':0' + sec + ':' + milisec;
+              } else {
+                timer.innerHTML = min + ':0' + sec + ':' + milisec;
+              }
+          } else {
+              if (min < 10) {
+                timer.innerHTML = '0' + min + ':' + sec + ':' + milisec;
+              } else {
+                timer.innerHTML = min + ':' + sec + ':' + milisec;
+              }
+          }
+      }
+    }
 
+    var go;
+    var i = 1;
+    deleteList.addEventListener('click', function(){
+      i = 1;
+      list.innerHTML = '';
+    });
 
-function createTimeSection(timeType) { 
-  var lapTime = document.createElement('div');
-  lapTime.classList.add('lapSection');
-  lapBlock.appendChild(lapTime);
-  lapTime.innerHTML = (timeType);
-}
-
-function createTimeBlock(type) {
-  lapBlock = document.createElement('div');
-  lapBlock.classList.add('lapBlock');
-  lapContainer.appendChild(lapBlock);
-  var lapText = document.createElement('div');
-
-  lapText.classList.add('lapText');
-  lapBlock.appendChild(lapText);
-  lapText.innerHTML = (type);
-
-  createTimeSection(hours);
-  createTimeSection(':');
-  createTimeSection(minutes);
-  createTimeSection(':');
-  createTimeSection(seconds);
-  createTimeSection(':');
-  createTimeSection(milliseconds);
-}
-
-function displayStopButton() {
-  start.style.display = 'none';
-  stop.style.display = 'block';
-}
-
-function displayStartButton() {
-  start.style.display = 'block';
-  stop.style.display = 'none';
-}
-
-
-function startStopwatch() {
- if(!flag) initialDate = new Date;
-}
-
-
-function getTime() {
-
-  var currentDate = new Date;
-  timer = new Date (currentDate - initialDate);
-
-  milliseconds = timer.getMilliseconds();
-  seconds = timer.getSeconds();
-  minutes = timer.getMinutes();
-  hours = timer.getUTCHours();
-
-  if(milliseconds < 100){
-    milliseconds = '0' + milliseconds;
-  }
-  if(seconds < 20){
-    seconds = '0' + seconds;
-  }
-  if (minutes < 10){
-    minutes = '0' + minutes;
-  }
-  if (hours < 10){
-    hours = '0' + hours;
-  }
-}
-
-function counter() {
-  getTime();
-  mil.innerHTML = milliseconds;
-  sec.innerHTML = seconds;
-  min.innerHTML = minutes;
-  hours.innerHTML = hours;
-}
-
-
-function displayTimer() {
-  timerId = setInterval(counter, 10);
-}
+    start.addEventListener('click', function() {
+      if (start.textContent === 'Start' || start.textContent === 'Continue'){
+        clearInterval(go);
+        go = setInterval(startimer, 10);
+        start.innerHTML = 'Pause';
+        start.classList.add('button-stop');
+      } else{
+        clearInterval(go);
+        start.innerHTML = 'Continue';
+        start.classList.remove('button-stop');
+      }
+    });
 
 // Кнопка СТОП
-function stopTimer() {
-  clearInterval(timerId);
-  getTime();
-  flag = true;
-}
+stop.addEventListener('click', function(){
+  clearInterval(go);
+  timer.innerHTML = '00' + ':00' + ':00';
+  milisec = 0;
+  sec = 0;
+  min = 0;
+  start.innerHTML = 'Start';
+});
 
 //  кнопка Круга
-function newLap() {
-  if (flag == true){
-    getTime();
-    createTimeBlock('LAP ');
-  } else {
-    lapBlock = document.createElement('div');
-    lapBlock.classList.add('lapBlock');
-    lapContainer.appendChild(lapBlock);
-    var lapText = document.createElement('div');
-
-    lapText.classList.add('lapText');
-    lapBlock.appendChild(lapText);
-    lapText.innerHTML = ('PRESS START FIRST');
-  }
-}
+circle.addEventListener('click', function(){
+  if(start.textContent === 'Start' || start.textContent === 'Continue'){
+    start.innerHTML = 'Pause';
+  };
+  var newLi = document.createElement('li');
+  newLi.classList.add('new-li');
+  newLi.innerHTML = '<p>' + 'Circle ' + i + ': ' + '</p>' + '<span>' + timer.textContent + '</span>';
+  list.append(newLi);
+  setTimeout(function() {
+    newLi.classList.add('show');
+  }, 10);
+  i++;
+  clearInterval(go);
+    timer.innerHTML = '00' + ':00' + ':00';
+    milisec = 0;
+    sec = 0;
+    min = 0;
+    go = setInterval(startimer, 10);
+});
 
 // кнопка Reset
 function resetTimer() {
